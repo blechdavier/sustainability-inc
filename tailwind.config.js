@@ -4,6 +4,6 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('tailwindcss-bg-patterns'),require('@tailwindcss/forms')],
 }
 

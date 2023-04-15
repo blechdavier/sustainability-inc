@@ -1,2 +1,40 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<section
+	class="relative bg-[url(https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=820&q=80)] bg-cover bg-center bg-no-repeat"
+>
+	<div
+		class="absolute inset-0 bg-white/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-white/95 sm:to-white/25"
+	/>
+
+	<div
+		class="relative mx-auto max-w-screen-xl min-h-screen px-4 py-32 sm:px-6 flex items-center lg:px-8"
+	>
+		<div class="max-w-xl text-center sm:text-left">
+			<h1 class="text-3xl font-extrabold sm:text-5xl">
+				Learn with
+
+				<strong class="block font-extrabold text-lime-700"> Sustainability Inc. </strong>
+			</h1>
+
+			<p class="mt-4 max-w-xl sm:text-xl sm:leading-relaxed">
+				An educational game that teaches you about the environment. As the CEO of Sustainability
+				Inc., your decisions will determine the future of the planet.
+			</p>
+
+			<div class="mt-8 flex flex-wrap gap-4 text-center">
+				<a
+					href="/play"
+					class="block w-full rounded bg-lime-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-lime-700 focus:outline-none focus:ring active:bg-lime-500 sm:w-auto"
+				>
+					Get Started
+				</a>
+
+				<a
+					href="/info"
+					class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-lime-600 shadow hover:text-lime-700 focus:outline-none focus:ring active:text-lime-500 sm:w-auto"
+				>
+					Learn More
+				</a>
+			</div>
+		</div>
+	</div>
+</section>

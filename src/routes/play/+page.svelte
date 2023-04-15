@@ -1,0 +1,229 @@
+<script lang="ts">
+	import { PRODUCTS, type Product } from '$lib/products';
+	type SellingProduct = Product & { finish_sell_time: number };
+	type OptionalSellingProduct = SellingProduct | undefined;
+
+	let shelf: OptionalSellingProduct[] = [undefined, undefined, undefined, undefined];
+
+	let startTime = Date.now();
+
+	let time = 0;
+
+	let balance = 1;
+	let max_balance: number | undefined = undefined;
+	let balance_percent_increase: number | undefined = undefined;
+
+	function addProduct(product: Product) {
+		if (product.price > balance) {
+			console.log('not enough money');
+			return;
+		}
+		let new_product: Product & { finish_sell_time: number } = {
+			...product,
+			finish_sell_time: time + product.sell_duration
+		};
+		for (let i = 0; i < shelf.length; i++) {
+			if (shelf[i] === undefined) {
+				shelf[i] = new_product;
+				balance -= product.price;
+				return;
+			}
+		}
+
+		console.log('no room on shelf');
+	}
+
+	setInterval(() => {
+		time = (Date.now() - startTime) / 1000;
+		for (let i = 0; i < shelf.length; i++) {
+			const item = shelf[i];
+			if (item === undefined) continue;
+			if (time > item.finish_sell_time) {
+				balance += item.price * 1.25;
+				if (max_balance == undefined) max_balance = balance;
+				if (balance > max_balance) {
+					balance_percent_increase = (balance / max_balance - 1) * 100;
+					max_balance = balance;
+				}
+				shelf[i] = undefined;
+			}
+		}
+	}, 10);
+</script>
+
+<section
+	class="flex items-center justify-center min-h-screen pattern-dots pattern-gray-200 pattern-bg-gray-100 pattern-size-4 opacity-100 sm:p-8"
+>
+	<div class="max-w-4xl h-min bg-white p-4 sm:rounded-2xl sm:shadow-xl">
+		<div class="flex justify-between items-center space-x-4">
+			<div class="p-2">
+				<h1 class="text-4xl font-bold text-center">Sustainability Inc.</h1>
+				<p class="bottom-0 text-gray-400 font-semibold">by Xavier Bradford</p>
+			</div>
+		</div>
+
+		<div class="flex flex-col sm:flex-row">
+			<div class="flex-shrink-0 sm:w-1/3 p-2 space-y-2">
+				<h2 class="text-2xl font-medium text-gray-900 mb-4">Stats</h2>
+				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6">
+					{#if balance_percent_increase !== undefined}
+						<div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-4 w-4"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+								/>
+							</svg>
+
+							<span class="text-xs font-medium">
+								{balance_percent_increase.toLocaleString(undefined, {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2
+								})}%
+							</span>
+						</div>
+					{/if}
+
+					<div>
+						<strong class="block text-sm font-medium text-gray-500"> Balance </strong>
+
+						<p>
+							<span class="text-2xl font-medium text-gray-900"
+								>${balance.toLocaleString(undefined, {
+									minimumFractionDigits: balance < 1000000 ? 2 : 0,
+									maximumFractionDigits: balance < 1000000 ? 2 : 0
+								})}
+							</span>
+
+							{#if max_balance !== undefined}
+								<span class="text-xs text-gray-500">
+									max ${max_balance.toLocaleString(undefined, {
+										minimumFractionDigits: balance < 1000000 ? 2 : 0,
+										maximumFractionDigits: balance < 1000000 ? 2 : 0
+									})}
+								</span>
+							{/if}
+						</p>
+					</div>
+				</div>
+
+				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6">
+					<div class="inline-flex gap-2 self-end rounded bg-red-100 p-1 text-red-600">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-4 w-4"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+							/>
+						</svg>
+
+						<span class="text-xs font-medium"> 67.81% </span>
+					</div>
+
+					<div>
+						<strong class="block text-sm font-medium text-gray-500"> Total Emissions </strong>
+
+						<p>
+							<span class="text-2xl font-medium text-gray-900"> 123.1kg </span>
+
+							<span class="text-xs text-gray-500"> from 102kg </span>
+						</p>
+					</div>
+				</div>
+				<div>
+					<h2 class="text-2xl font-medium text-gray-900 my-4">Currently Selling</h2>
+					<div class="grid auto-rows-fr grid-cols-4 sm:grid-cols-1 gap-2 h-32 sm:h-[669px]">
+						{#each shelf as item}
+							{#if item !== undefined && item.finish_sell_time > time}
+								<div
+									class="relative rounded bg-cover bg-center bg-no-repeat overflow-hidden"
+									style="background-image: url({item.image})"
+								>
+									<div class="absolute inset-0 bg-black/40" />
+									<!-- <div
+										class="absolute top-1 left-[2%] bg-white/90 h-1"
+										style="right: {96 -
+											(item.sell_duration + time - item.finish_sell_time) *
+												(96 / item.sell_duration)}%"
+									/> -->
+									<div
+										class="absolute bottom-1 left-[2%] bg-white h-1 rounded-full"
+										style="right: {96 -
+											(item.sell_duration + time - item.finish_sell_time) *
+												(96 / item.sell_duration)}%"
+									/>
+									<div class="relative flex items-start justify-between p-4 sm:p-6">
+										<div class="pt-12 text-white drop-shadow-xl">
+											<h3 class="text-xl font-bold sm:text-2xl">{item.name}</h3>
+
+											<p class="text-sm">
+												For ${(item.price * 1.25).toLocaleString(undefined, {
+													minimumFractionDigits: 2,
+													maximumFractionDigits: 2
+												})}
+											</p>
+										</div>
+
+										<!-- <div
+											class="w-8 h-8 rounded-full"
+											style="background-image: conic-gradient(#fff0 {(item.sell_duration +
+												time -
+												item.finish_sell_time) *
+												(360 / item.sell_duration) -
+												3}deg, #fffb {(item.sell_duration + time - item.finish_sell_time) *
+												(360 / item.sell_duration) +
+												3}deg);"
+										/> -->
+									</div>
+									<div
+										class="absolute inset-0 bg-gray-100 transition-all bg-opacity-0"
+										class:bg-opacity-100={time > item.finish_sell_time - 0.1}
+									/>
+								</div>
+							{:else}
+								<div class="bg-gray-100 rounded flex items-center justify-center p-1">
+									<p class="font-semibold text-gray-400 text-center text-xs w-24">
+										Click on a product to sell it
+									</p>
+								</div>
+							{/if}
+						{/each}
+					</div>
+				</div>
+			</div>
+			<div class="p-2">
+				<h2 class="text-2xl font-medium text-gray-900 mb-4">Buy Products</h2>
+				<div class="grid gap-2 grid-cols-2 lg:grid-cols-3 sm:max-h-[64rem] sm:overflow-auto">
+					{#each PRODUCTS as product}
+						<button class="block group" on:click={() => addProduct(product)}>
+							<img src={product.image} alt="" class="object-cover w-full rounded aspect-square" />
+
+							<div class="mt-3 flex justify-between items-start">
+								<h3 class="font-medium text-gray-900">{product.name}</h3>
+
+								<p class="mt-1 text-sm text-gray-700 tracking-wide">
+									${product.price.toLocaleString()}
+								</p>
+							</div>
+						</button>
+					{/each}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
