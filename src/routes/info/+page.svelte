@@ -6,7 +6,7 @@
 		<h2 class="font-medium text-lg mt-4">Inspiration</h2>
 		<p>
 			Sustainability Inc. is inspired by games like <a
-				class="text-blue-300"
+				class="text-blue-400"
 				href="https://orteil.dashnet.org/cookieclicker/">Cookie Clicker</a
 			>, where you sell cookies by clicking on them. Through this project, I wanted to use the
 			popularity of this style of game to educate people on the carbon emissions of everyday items.
@@ -22,14 +22,14 @@
 		<ol class="list-decimal ml-4">
 			<li>Set up a new SvelteKit Project</li>
 			<li>
-				Import <a class="text-blue-300" href="https://tailwindcss.com/">TailwindCSS</a> and other dependencies
+				Import <a class="text-blue-400" href="https://tailwindcss.com/">TailwindCSS</a> and other dependencies
 			</li>
 			<li>
 				Design and implement the UI
 				<ul class="list-disc ml-8">
 					<li>
 						Some of the UI elements are variations of the <a
-							class="text-blue-300"
+							class="text-blue-400"
 							href="https://www.hyperui.dev/">HyperUI Components</a
 						>
 					</li>
@@ -61,10 +61,10 @@
 			<li>
 				Staying consistent with the style of the game while also sourcing images that I was legally
 				allowed to use was a challenge. I ended up using a lot of images from <a
-					class="text-blue-300"
+					class="text-blue-400"
 					href="https://unsplash.com/">Unsplash</a
 				>, which are all licensed under the
-				<a class="text-blue-300" href="https://unsplash.com/license">Unsplash License</a>.
+				<a class="text-blue-400" href="https://unsplash.com/license">Unsplash License</a>.
 			</li>
 		</ol>
 		<h2 class="font-medium text-lg mt-4">Accomplishments that we&#39;re proud of</h2>
