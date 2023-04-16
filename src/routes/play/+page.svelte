@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { PRODUCTS, type Product } from '$lib/products';
+	import { formatMass, formatMoney, formatMoneyShort } from '$lib/format';
+
 	type SellingProduct = Product & { finish_sell_time: number };
 	type OptionalSellingProduct = SellingProduct | undefined;
 
@@ -10,8 +12,11 @@
 	let time = 0;
 
 	let balance = 1;
-	let max_balance: number | undefined = undefined;
-	let balance_percent_increase: number | undefined = undefined;
+	let max_balance = balance;
+	let balance_increase = 0;
+
+	let emissions = 0;
+	let emissions_change = 0;
 
 	function addProduct(product: Product) {
 		if (product.price > balance) {
@@ -26,6 +31,8 @@
 			if (shelf[i] === undefined) {
 				shelf[i] = new_product;
 				balance -= product.price;
+				emissions_change = product.co2_kg;
+				emissions += product.co2_kg;
 				return;
 			}
 		}
@@ -42,7 +49,7 @@
 				balance += item.price * 1.25;
 				if (max_balance == undefined) max_balance = balance;
 				if (balance > max_balance) {
-					balance_percent_increase = (balance / max_balance - 1) * 100;
+					balance_increase = balance - max_balance;
 					max_balance = balance;
 				}
 				shelf[i] = undefined;
@@ -66,7 +73,11 @@
 			<div class="flex-shrink-0 sm:w-1/3 p-2 space-y-2">
 				<h2 class="text-2xl font-medium text-gray-900 mb-4">Stats</h2>
 				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6">
-					{#if balance_percent_increase !== undefined}
+					{#if balance_increase === 0}
+						<div class="inline-flex gap-2 self-end rounded bg-gray-100 p-1 text-gray-400">
+							<p class="text-xs font-semibold w-16 text-center tracking-widest">---</p>
+						</div>
+					{:else}
 						<div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -84,10 +95,7 @@
 							</svg>
 
 							<span class="text-xs font-medium">
-								{balance_percent_increase.toLocaleString(undefined, {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2
-								})}%
+								+{formatMoneyShort(balance_increase)}
 							</span>
 						</div>
 					{/if}
@@ -96,19 +104,11 @@
 						<strong class="block text-sm font-medium text-gray-500"> Balance </strong>
 
 						<p>
-							<span class="text-2xl font-medium text-gray-900"
-								>${balance.toLocaleString(undefined, {
-									minimumFractionDigits: balance < 1000000 ? 2 : 0,
-									maximumFractionDigits: balance < 1000000 ? 2 : 0
-								})}
-							</span>
+							<span class="text-2xl font-medium text-gray-900">${formatMoney(balance)} </span>
 
 							{#if max_balance !== undefined}
 								<span class="text-xs text-gray-500">
-									max ${max_balance.toLocaleString(undefined, {
-										minimumFractionDigits: balance < 1000000 ? 2 : 0,
-										maximumFractionDigits: balance < 1000000 ? 2 : 0
-									})}
+									max ${formatMoney(max_balance)}
 								</span>
 							{/if}
 						</p>
@@ -116,36 +116,63 @@
 				</div>
 
 				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6">
-					<div class="inline-flex gap-2 self-end rounded bg-red-100 p-1 text-red-600">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-4 w-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-							/>
-						</svg>
+					{#if emissions_change === 0}
+						<div class="inline-flex gap-2 self-end rounded bg-gray-100 p-1 text-gray-400">
+							<p class="text-xs font-semibold w-16 text-center tracking-widest">---</p>
+						</div>
+					{:else if emissions_change < 0}
+						<div class="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-4 w-4"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+								/>
+							</svg>
 
-						<span class="text-xs font-medium"> 67.81% </span>
-					</div>
+							<span class="text-xs font-medium"> -{formatMass(Math.abs(emissions_change))} </span>
+						</div>
+					{:else}
+						<div class="inline-flex gap-2 self-end rounded bg-red-100 p-1 text-red-600">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-4 w-4"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+								/>
+							</svg>
+
+							<span class="text-xs font-medium">
+								+{formatMass(emissions_change)}
+							</span>
+						</div>
+					{/if}
 
 					<div>
 						<strong class="block text-sm font-medium text-gray-500"> Total Emissions </strong>
 
 						<p>
-							<span class="text-2xl font-medium text-gray-900"> 123.1kg </span>
+							<span class="text-2xl font-medium text-gray-900"> {formatMass(emissions)} </span>
 
-							<span class="text-xs text-gray-500"> from 102kg </span>
+							<span class="text-xs text-gray-500"> from {formatMass(emissions)} </span>
 						</p>
 					</div>
 				</div>
-				<div>
+				<div class="relative">
 					<h2 class="text-2xl font-medium text-gray-900 my-4">Currently Selling</h2>
 					<div class="grid auto-rows-fr grid-cols-4 sm:grid-cols-1 gap-2 h-32 sm:h-[669px]">
 						{#each shelf as item}
@@ -210,15 +237,31 @@
 				<h2 class="text-2xl font-medium text-gray-900 mb-4">Buy Products</h2>
 				<div class="grid gap-2 grid-cols-2 lg:grid-cols-3 sm:max-h-[64rem] sm:overflow-auto">
 					{#each PRODUCTS as product}
-						<button class="block group" on:click={() => addProduct(product)}>
+						<button
+							class="block group transition-all duration-300"
+							class:brightnessds-50={max_balance < product.price}
+							disabled={balance < product.price}
+							on:click={() => addProduct(product)}
+						>
 							<img src={product.image} alt="" class="object-cover w-full rounded aspect-square" />
 
-							<div class="mt-3 flex justify-between items-start">
-								<h3 class="font-medium text-gray-900">{product.name}</h3>
-
-								<p class="mt-1 text-sm text-gray-700 tracking-wide">
-									${product.price.toLocaleString()}
-								</p>
+							<div class="mt-3">
+								<div class="text-left font-medium mb-1">
+									<div class="flex items-center justify-between">
+										<h3 class="text-gray-900">{product.name}</h3>
+										<p class="font-normal">
+											${product.price.toLocaleString()}
+										</p>
+									</div>
+									<div class="flex items-center justify-between text-xs text-gray-500">
+										<a class="text-right font-normal underline" href="/products/{product.name}"
+											>about {product.name}</a
+										>
+										<p>
+											{formatMass(product.co2_kg)} CO<sub>2</sub>
+										</p>
+									</div>
+								</div>
 							</div>
 						</button>
 					{/each}

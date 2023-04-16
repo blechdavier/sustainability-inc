@@ -27,7 +27,7 @@ export const PRODUCTS: Product[] = [
         price: 1,
         image:
             'https://plus.unsplash.com/premium_photo-1667047165840-803e47970128?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-        co2_kg: 0,
+        co2_kg: 0.01,
         sell_duration: 1
     },
     {
@@ -35,7 +35,7 @@ export const PRODUCTS: Product[] = [
         price: 5,
         image:
             'https://images.unsplash.com/photo-1601966915100-b217f1420977?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=776&q=80',
-        co2_kg: 0,
+        co2_kg: -0.03,
         sell_duration: 1.7
     },
     {
