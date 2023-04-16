@@ -1,7 +1,7 @@
 export const TUTORIAL = [
     {
         title: "Tutorial",
-        description: "In Sustainability Inc., you're the CEO of a small company that sells different products. You get points for making money, but lose them for emitting CO2.",
+        description: "In Sustainability Inc., you're the CEO of a small company that sells different products. Sell items to customers, but be conscious of the CO2 emissions you produce.",
     },
     {
         title: "Buy Products",
@@ -14,9 +14,5 @@ export const TUTORIAL = [
     {
         title: "Money and Emissions",
         description: "In this section, you can keep track of how much money you've made and how much CO2 you've emitted."
-    },
-    {
-        title: "Score",
-        description: "This is your score. Be mindful of your emissions, and have fun!"
     },
 ]
