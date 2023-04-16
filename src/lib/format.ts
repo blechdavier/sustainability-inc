@@ -24,18 +24,18 @@ export function formatMoney(amount: number): string {
     if (amount < 10_000_000) {
         return `${(amount / 1000).toLocaleString(
             undefined,
-            { maximumFractionDigits: 1, minimumFractionDigits: 1 }
+            { maximumFractionDigits: 1 }
         )}k`;
     }
     if (amount < 10_000_000_000) {
         return `${(amount / 1000000).toLocaleString(
             undefined,
-            { maximumFractionDigits: 1, minimumFractionDigits: 1 }
+            { maximumFractionDigits: 1 }
         )}m`;
     }
     return `${(amount / 1000000000).toLocaleString(
         undefined,
-        { maximumFractionDigits: 1, minimumFractionDigits: 1 }
+        { maximumFractionDigits: 1 }
     )}b`;
 }
 
@@ -49,23 +49,23 @@ export function formatMoneyShort(amount: number): string {
     if (amount < 1000) {
         return `${amount.toLocaleString(
             undefined,
-            { maximumFractionDigits: 0, minimumFractionDigits: 0 }
+            { maximumFractionDigits: 0 }
         )}`;
     }
     if (amount < 10_000) {
         return `${(amount / 1_000).toLocaleString(
             undefined,
-            { maximumFractionDigits: 1, minimumFractionDigits: 1 }
+            { maximumFractionDigits: 1 }
         )}k`;
     }
     if (amount < 10_000_000) {
         return `${(amount / 1_000_000).toLocaleString(
             undefined,
-            { maximumFractionDigits: 1, minimumFractionDigits: 1 }
+            { maximumFractionDigits: 1 }
         )}m`;
     }
     return `${(amount / 1_000_000_000).toLocaleString(
         undefined,
-        { maximumFractionDigits: 1, minimumFractionDigits: 1 }
+        { maximumFractionDigits: 1 }
     )}b`;
 }

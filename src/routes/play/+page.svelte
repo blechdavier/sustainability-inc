@@ -285,8 +285,10 @@
 										</p>
 									</div>
 									<div class="flex items-center justify-between text-xs text-gray-500">
-										<a class="text-right font-normal underline" href="/products/{product.name}"
-											>about {product.name}</a
+										<a
+											class="text-right font-normal underline"
+											href="/products/{product.name}"
+											target="_blank">about {product.name}</a
 										>
 										<p>
 											{formatMass(product.co2_kg)} CO<sub>2</sub>
