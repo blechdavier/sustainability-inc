@@ -6,23 +6,6 @@ export type Product = {
     sell_duration: number;
 };
 
-/*
-
-- corn
-- walnuts
-- steak
-- sushi
-- sweater
-- gaming console
-- iphone
-- gas car
-- electric car
-- sports car
-- house
-- private jet
-
-*/
-
 export const PRODUCTS: Product[] = [
     // sell duration is the 1 second plus the log base 10 of the price
     {
@@ -73,11 +56,32 @@ export const PRODUCTS: Product[] = [
     },
     {
         name: 'iPhone',
-        price: 1_000,
+        price: 1_200,
         image:
             'https://images.unsplash.com/photo-1523206489230-c012c64b2b48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80',
         co2_kg: 98.2,
-        sell_duration: 4
+        sell_duration: 4.1
+    },
+    {
+        name: 'Family Vacation',
+        price: 4_000,
+        image: "https://images.unsplash.com/photo-1587654542342-c6f9bf970132?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+        co2_kg: 8800,
+        sell_duration: 4.6
+    },
+    {
+        name: 'Motorcycle',
+        price: 10_000,
+        image: "https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80",
+        co2_kg: 960,
+        sell_duration: 5
+    },
+    {
+        name: 'Used Gas Car',
+        price: 20_000,
+        image: "https://images.unsplash.com/photo-1610411605947-0a96f654d829?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1334&q=80",
+        co2_kg: 46000,
+        sell_duration: 5.3
     },
     {
         name: 'Gas Car',

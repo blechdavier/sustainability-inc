@@ -6,22 +6,6 @@ type ResearchEntry = {
     sources: string[];
 }
 
-/*
-
-- corn
-- walnuts
-- steak
-- sushi
-- sweater
-- gaming console
-- iphone
-- gas car
-- electric car
-- sports car
-- house
-- private jet
-
-*/
 
 export const RESEARCH: ResearchEntry[] = [
     {
@@ -72,6 +56,27 @@ export const RESEARCH: ResearchEntry[] = [
         emissions: "An iPhone 13 Pro emits 69kg CO₂e from manufacturing. It draws about 10W of power, and over the lifetime of the phone, it will emit 0.01kg CO₂e per hour for an additional 29.2kg CO₂e, bringing the total to 98.2kg CO₂e.",
         otherConcerns: "Smartphones can be harmful to the environment. This is because they are made from materials that are difficult to recycle, and they use a lot of energy.",
         sources: ["https://8billiontrees.com/carbon-offsets-credits/carbon-footprint-of-iphone/"]
+    },
+    {
+        initialParagraph: "A family vacation is a trip that is taken by a family. It can be a short trip, or it can be a long trip that lasts for several days.",
+        quantity: "Vacation for a family of 4",
+        emissions: "Flying a family of four round trip can emit a lot of CO₂. A round trip flight from Chicago to Honolulu for four people emits 8.8 metric tons of CO₂.",
+        otherConcerns: "Flying is a very energy-intensive activity. It can be harmful to the environment.",
+        sources: ["https://co2.myclimate.org/en/portfolios?calculation_id=5694319"]
+    },
+    {
+        initialParagraph: "A motorcycle is a two-wheeled vehicle that is used for transportation. They ride on the road, and are often used for commuting to work.",
+        quantity: "1 motorcycle per purchase",
+        emissions: "A medium motorcycle can emit 0.16kg CO₂e per mile. Riding to work and back 300 days a year can emit 96kg of CO₂ per year. Over 10 years, that's 960kg of CO₂.",
+        otherConcerns: "Motorcycles are dangerous to ride. They can be very fast, and they can be difficult to control.",
+        sources: ["https://thrustcarbon.com/insights/how-to-calculate-motorbike-co2-emissions"]
+    },
+    {
+        initialParagraph: "Buying a used car can cut down on initial manufacturing emissions. It can also save you money.",
+        quantity: "1 used car per purchase",
+        emissions: "A typical passenger vehicle emits about 4.6 metric tons of CO₂ per year. Assuming it lasts 10 years, that's 46 metric tons of CO₂ per car. Manufacturing costs don't apply here, since the car is used.",
+        otherConcerns: "Car-centric cities are less efficient than cities that are designed around public transportation. Moving away from cars can help make it easier for people to get around.",
+        sources: ["https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle"]
     },
     {
         initialParagraph: "Gas-powered cars are vehicles that are powered by gasoline. They are a popular type of car that is used for many different things, including commuting to work and going on long road trips.",
