@@ -48,7 +48,7 @@ export const PRODUCTS: Product[] = [
         sell_duration: 2.7
     },
     {
-        name: 'Gaming Console',
+        name: 'Console',
         price: 500,
         image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
         co2_kg: 381,
