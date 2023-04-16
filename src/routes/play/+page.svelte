@@ -190,7 +190,7 @@
 					</div>
 				</div>
 
-				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6 relative">
+				<!-- <div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6 relative">
 					<Tutorial side="right" index={4} {tutorialStep} />
 					<div>
 						<strong class="block text-sm font-medium text-gray-500 mt-10"> Overall Score </strong>
@@ -201,7 +201,7 @@
 							})} points
 						</p>
 					</div>
-				</div>
+				</div> -->
 				<div class="relative">
 					<Tutorial side="right" index={2} {tutorialStep} />
 					<h2 class="text-2xl font-medium text-gray-900 my-4">Currently Selling</h2>

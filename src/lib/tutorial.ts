@@ -1,7 +1,7 @@
 export const TUTORIAL = [
     {
         title: "Tutorial",
-        description: "In Sustainability Inc., you're the CEO of a small company that sells different things. You get points for making money, but lose them for emitting CO2.",
+        description: "In Sustainability Inc., you're the CEO of a small company that sells different products. You get points for making money, but lose them for emitting CO2.",
     },
     {
         title: "Buy Products",

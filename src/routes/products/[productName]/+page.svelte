@@ -32,12 +32,12 @@
 			<img alt="Les Paul" src={data.image} class="aspect-square w-full rounded-xl object-cover" />
 
 			<div class="sticky top-0 space-y-4">
-				<div class="flex justify-between">
-					<div class="max-w-[35ch] space-y-2">
-						<h1 class="text-xl font-bold sm:text-2xl">{data.name}</h1>
+				<div class="flex justify-between items-center">
+					<h1 class="text-xl font-bold sm:text-2xl">{data.name}</h1>
+					<div class="text-right">
+						<p class="text-lg font-bold">${formatMoney(data.price)}</p>
+						<p class="text-lg font-bold">{formatMass(data.co2_kg)} CO<sub>2</sub>e</p>
 					</div>
-
-					<p class="text-lg font-bold">${formatMoney(data.price)}</p>
 				</div>
 
 				<div>
@@ -60,6 +60,18 @@
 					<p class="prose max-w-none">
 						{data.otherConcerns}
 					</p>
+				</div>
+				<div>
+					<p class="text-sm font-bold">Sources</p>
+					<ul class="prose max-w-none text-xs text-blue-400">
+						{#each data.sources as source}
+							<li>
+								<a class="" href={source}>
+									{source}
+								</a>
+							</li>
+						{/each}
+					</ul>
 				</div>
 			</div>
 		</div>

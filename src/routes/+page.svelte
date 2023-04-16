@@ -15,25 +15,26 @@
 				<h1 class="text-3xl font-extrabold sm:text-5xl">
 					Learn with
 
-					<strong class="block font-extrabold text-lime-700"> Sustainability Inc. </strong>
+					<strong class="block font-extrabold text-green-700"> Sustainability Inc. </strong>
 				</h1>
 
-				<p class="mt-4 max-w-xl sm:text-xl sm:leading-relaxed">
-					An educational game that teaches you about the environment. As the CEO of Sustainability
-					Inc., your decisions will determine the future of the planet.
+				<p class="mt-4 max-w-xl sm:text-lg sm:leading-relaxed">
+					In Sustainability Inc., you're the CEO of a small company that sells different products.
+					The goal of the game is to see how much carbon emissions you are producing when selling
+					each item to progress.
 				</p>
 
 				<div class="mt-8 flex flex-wrap gap-4 text-center">
 					<a
 						href="/play"
-						class="block w-full rounded bg-lime-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-lime-700 focus:outline-none focus:ring active:bg-lime-500 sm:w-auto"
+						class="block w-full rounded bg-green-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-green-700 focus:outline-none focus:ring active:bg-green-500 sm:w-auto"
 					>
 						Get Started
 					</a>
 
 					<a
 						href="/info"
-						class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-lime-600 shadow hover:text-lime-700 focus:outline-none focus:ring active:text-lime-500 sm:w-auto"
+						class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-green-600 shadow hover:text-green-700 focus:outline-none focus:ring active:text-green-500 sm:w-auto"
 					>
 						Learn More
 					</a>
