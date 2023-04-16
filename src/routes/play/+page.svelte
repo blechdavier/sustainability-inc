@@ -185,7 +185,9 @@
 						<p>
 							<span class="text-2xl font-medium text-gray-900"> {formatMass(emissions)} </span>
 
-							<span class="text-xs text-gray-500"> from {formatMass(emissions)} </span>
+							<span class="text-xs text-gray-500">
+								from {formatMass(emissions - emissions_change)}
+							</span>
 						</p>
 					</div>
 				</div>
