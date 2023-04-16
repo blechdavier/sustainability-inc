@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>About Sustainability Inc.</title>
+</svelte:head>
+
 <section
 	class="flex items-center justify-center min-h-screen pattern-dots pattern-gray-200 pattern-bg-gray-100 pattern-size-4 opacity-100 sm:p-8"
 >
