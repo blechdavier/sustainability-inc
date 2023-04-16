@@ -1,7 +1,3 @@
-<script>
-	import { INIT_CWD } from '$env/static/private';
-</script>
-
 <svelte:head>
 	<title>Sustainability Inc.</title>
 </svelte:head>
