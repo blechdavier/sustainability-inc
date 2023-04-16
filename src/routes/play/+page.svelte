@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { PRODUCTS, type Product } from '$lib/products';
 	import { formatMass, formatMoney, formatMoneyShort } from '$lib/format';
+	import Tutorial from '$lib/Tutorial.svelte';
+	import { TUTORIAL } from '$lib/tutorial';
+	import { onMount } from 'svelte';
 
 	type SellingProduct = Product & { finish_sell_time: number };
 	type OptionalSellingProduct = SellingProduct | undefined;
 
 	let shelf: OptionalSellingProduct[] = [undefined, undefined, undefined, undefined];
+
+	let tutorialStep = TUTORIAL.length;
 
 	let startTime = Date.now();
 
@@ -40,6 +45,12 @@
 		console.log('no room on shelf');
 	}
 
+	function nextTutorialStep() {
+		tutorialStep += 1;
+		if (tutorialStep === TUTORIAL.length)
+			document.cookie = 'tutorial=true; expires=Fri, 31 Dec 9999 23:59:59 GMT';
+	}
+
 	setInterval(() => {
 		time = (Date.now() - startTime) / 1000;
 		for (let i = 0; i < shelf.length; i++) {
@@ -56,6 +67,10 @@
 			}
 		}
 	}, 10);
+
+	onMount(() => {
+		tutorialStep = document.cookie.includes('tutorial=true') ? TUTORIAL.length : 0;
+	});
 </script>
 
 <section
@@ -63,7 +78,8 @@
 >
 	<div class="max-w-4xl h-min bg-white p-4 sm:rounded-2xl sm:shadow-xl">
 		<div class="flex justify-between items-center space-x-4">
-			<div class="p-2">
+			<div class="p-2 relative">
+				<Tutorial side="right" index={0} {tutorialStep} />
 				<h1 class="text-4xl font-bold text-center">Sustainability Inc.</h1>
 				<p class="bottom-0 text-gray-400 font-semibold">by Xavier Bradford</p>
 			</div>
@@ -72,7 +88,8 @@
 		<div class="flex flex-col sm:flex-row">
 			<div class="flex-shrink-0 sm:w-1/3 p-2 space-y-2">
 				<h2 class="text-2xl font-medium text-gray-900 mb-4">Stats</h2>
-				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6">
+				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6 relative">
+					<Tutorial side="right" index={3} {tutorialStep} />
 					{#if balance_increase === 0}
 						<div class="inline-flex gap-2 self-end rounded bg-gray-100 p-1 text-gray-400">
 							<p class="text-xs font-semibold w-16 text-center tracking-widest">---</p>
@@ -172,7 +189,21 @@
 						</p>
 					</div>
 				</div>
+
+				<div class="flex flex-col gap-4 rounded-lg border border-gray-100 bg-white p-6 relative">
+					<Tutorial side="right" index={4} {tutorialStep} />
+					<div>
+						<strong class="block text-sm font-medium text-gray-500 mt-10"> Overall Score </strong>
+
+						<p class="text-2xl font-medium text-gray-900">
+							{((Math.log(max_balance) - emissions / 10) * 1000).toLocaleString(undefined, {
+								maximumFractionDigits: 0
+							})} points
+						</p>
+					</div>
+				</div>
 				<div class="relative">
+					<Tutorial side="right" index={2} {tutorialStep} />
 					<h2 class="text-2xl font-medium text-gray-900 my-4">Currently Selling</h2>
 					<div class="grid auto-rows-fr grid-cols-4 sm:grid-cols-1 gap-2 h-32 sm:h-[669px]">
 						{#each shelf as item}
@@ -233,13 +264,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="p-2">
+			<div class="p-2 relative">
+				<Tutorial side="left" index={1} {tutorialStep} />
 				<h2 class="text-2xl font-medium text-gray-900 mb-4">Buy Products</h2>
 				<div class="grid gap-2 grid-cols-2 lg:grid-cols-3 sm:max-h-[64rem] sm:overflow-auto">
 					{#each PRODUCTS as product}
 						<button
 							class="block group transition-all duration-300"
-							class:brightnessds-50={max_balance < product.price}
 							disabled={balance < product.price}
 							on:click={() => addProduct(product)}
 						>
@@ -269,4 +300,10 @@
 			</div>
 		</div>
 	</div>
+	<div
+		class="absolute inset-0 bg-black/40"
+		class:hidden={tutorialStep === TUTORIAL.length}
+		on:click={() => nextTutorialStep()}
+		on:keypress={() => nextTutorialStep()}
+	/>
 </section>

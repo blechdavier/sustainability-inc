@@ -37,4 +37,7 @@
 			</div>
 		</div>
 	</div>
+	<p class="absolute right-4 bottom-4 text-xs font-medium">
+		By playing this game, you agree to have cookies stored on your device.
+	</p>
 </section>
